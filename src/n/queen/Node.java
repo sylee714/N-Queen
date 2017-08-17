@@ -14,14 +14,15 @@ import java.util.Queue;
  * @author MingKie
  */
 public class Node {
-    private final int N = 22;
+    private int n;
     private final int BLANK = 0;
     private final int QUEEN = 1;
     private int value;
     private Board board;
     private Queue<Board> neighbors;
     
-    public Node(Board board) {
+    public Node(Board board, int n) {
+        this.n = n;
         this.board = board;
         value = this.board.getTotalAttacks();
         neighbors = new PriorityQueue<>();
@@ -39,7 +40,7 @@ public class Node {
 
     private void moveUp() {
         //System.out.println("Move Up");
-        for (int i = 0; i < N; ++i) {
+        for (int i = 0; i < n; ++i) {
             Queen[] queens = board.getQueens().clone();
             for (int j = 0; j < queens.length; ++j) {
                 queens[j] = new Queen(board.getQueens()[j].getRow(), board.getQueens()[j].getCol());
@@ -48,7 +49,7 @@ public class Node {
             while(row > 0) {
                 row = row - 1;
                 queens[i].setRow(row);
-                Board board = new Board(generateBoard(queens));
+                Board board = new Board(generateBoard(queens), n);
                 //board.print();
                 //System.out.println("Value: " + board.getTotalAttacks());
                 //System.out.println();
@@ -60,16 +61,16 @@ public class Node {
     
     private void moveDown() {
         //System.out.println("Move Down");
-        for (int i = 0; i < N; ++i) {
+        for (int i = 0; i < n; ++i) {
             Queen[] queens = board.getQueens().clone();
             for (int j = 0; j < queens.length; ++j) {
                 queens[j] = new Queen(board.getQueens()[j].getRow(), board.getQueens()[j].getCol());
             }
             int row = queens[i].getRow();
-            while(row < N - 1) {
+            while(row < n - 1) {
                 row = row + 1;
                 queens[i].setRow(row);
-                Board board = new Board(generateBoard(queens));
+                Board board = new Board(generateBoard(queens), n);
                 //board.print();
                 //System.out.println("Value: " + board.getTotalAttacks());
                 //System.out.println();
@@ -80,15 +81,15 @@ public class Node {
     }
     
     private int[][] generateBoard(Queen[] queens) {
-        int[][] board = new int[N][N];
-        for (int i = 0; i < N; ++i) {
-            for (int j = 0; j < N; ++j) {
+        int[][] board = new int[n][n];
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
                 board[i][j] = BLANK;
             }
         }
         int row;
         int col;
-        for (int i = 0; i < N; ++i) {
+        for (int i = 0; i < n; ++i) {
             row = queens[i].getRow();
             col = queens[i].getCol();
             board[row][col] = QUEEN;
@@ -103,10 +104,5 @@ public class Node {
     public Queue<Board> getNeighbors() {
         return neighbors;
     }
-    
-    
-    
-   
-    
-    
+ 
 }

@@ -10,13 +10,15 @@ package n.queen;
  * @author MingKie
  */
 public class HillClimbing {
+    private int n;
     private Node initial;
     private Node last;
     private int searchCost;
     private long runTime;
     private final int GOAL = 0;
     
-    public HillClimbing(Node initial) {
+    public HillClimbing(Node initial, int n) {
+        this.n = n;
         this.initial = initial;
         searchCost = 0;
         runTime = 0;
@@ -34,7 +36,7 @@ public class HillClimbing {
                 //current.getBoard().print();
                 //System.out.println("Value: " + current.getValue());
                 searchCost = searchCost + current.getNeighbors().size();
-                neighbor = new Node(current.getNeighbors().remove());
+                neighbor = new Node(current.getNeighbors().remove(), n);
                 // Reached the goal state
                 if (current.getValue() == GOAL) {
                     long endTime = System.currentTimeMillis();
