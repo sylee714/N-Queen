@@ -1,21 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package n.queen;
 
 /**
- *
- * @author MingKie
+ * This class represents the steepest hill-climbing algorithm.
  */
 public class HillClimbing {
-    private int n;
+    private int n; // The number of queens
     private Node initial;
     private Node last;
     private int searchCost;
     private long runTime;
-    private final int GOAL = 0;
+    private final int GOAL = 0; // The number of attacking pairs
     
     public HillClimbing(Node initial, int n) {
         this.n = n;
@@ -25,17 +19,15 @@ public class HillClimbing {
     }
     
     public void solve() {
-        // Initial state is the goal state
+        // Check if initial state is the goal state
         if (!(initial.getValue() == GOAL)) {
             long startTime = System.currentTimeMillis();
             boolean end = false;
             Node current = initial;
             Node neighbor;
             while(!end) {
-                //System.out.println("Current Board");
-                //current.getBoard().print();
-                //System.out.println("Value: " + current.getValue());
                 searchCost = searchCost + current.getNeighbors().size();
+                // Get the neighbor with the best value
                 neighbor = new Node(current.getNeighbors().remove(), n);
                 // Reached the goal state
                 if (current.getValue() == GOAL) {
@@ -70,7 +62,4 @@ public class HillClimbing {
     public Node getLast() {
         return last;
     }
-    
-    
-
 }

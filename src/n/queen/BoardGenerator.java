@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package n.queen;
 
 import java.util.Random;
 
 /**
- *
- * @author MingKie
+ * This class represents a board generator. It generates a board with n-queens
+ * in random positions..
  */
 public class BoardGenerator {
     private int n;
@@ -51,7 +46,5 @@ public class BoardGenerator {
 
     public Board getBoard() {
         return board;
-    }
-    
-    
+    }   
 }

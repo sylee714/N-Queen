@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package n.queen;
 
-import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
- *
- * @author MingKie
+ * This class represents a node which is used in class HillClimbing.
+ * It finds all the possible neighbors from the current board.
  */
 public class Node {
-    private int n;
+    private int n; // The number of queens
     private final int BLANK = 0;
     private final int QUEEN = 1;
     private int value;
@@ -38,10 +32,15 @@ public class Node {
         moveDown();
     }
 
+    /**
+     * Moves a queen up and recalculate the number of attacking pairs
+     * and add the new neighbor to the neighbors.
+     */
     private void moveUp() {
-        //System.out.println("Move Up");
         for (int i = 0; i < n; ++i) {
+            // Use clone so it does not affect the original board
             Queen[] queens = board.getQueens().clone();
+            // Copy queens
             for (int j = 0; j < queens.length; ++j) {
                 queens[j] = new Queen(board.getQueens()[j].getRow(), board.getQueens()[j].getCol());
             }
@@ -49,20 +48,21 @@ public class Node {
             while(row > 0) {
                 row = row - 1;
                 queens[i].setRow(row);
-                Board board = new Board(generateBoard(queens), n);
-                //board.print();
-                //System.out.println("Value: " + board.getTotalAttacks());
-                //System.out.println();
-                neighbors.add(board);
+                Board neighbor = new Board(generateBoard(queens), n);
+                neighbors.add(neighbor);
             }
-            //System.out.println("--------------");
         }
     }
     
+    /**
+     * Moves a queen down and recalculate the number of attacking pairs
+     * and add the new neighbor to the neighbors.
+     */
     private void moveDown() {
-        //System.out.println("Move Down");
         for (int i = 0; i < n; ++i) {
+            // Use clone so it does not affect the original board
             Queen[] queens = board.getQueens().clone();
+            // Copy queens
             for (int j = 0; j < queens.length; ++j) {
                 queens[j] = new Queen(board.getQueens()[j].getRow(), board.getQueens()[j].getCol());
             }
@@ -70,16 +70,17 @@ public class Node {
             while(row < n - 1) {
                 row = row + 1;
                 queens[i].setRow(row);
-                Board board = new Board(generateBoard(queens), n);
-                //board.print();
-                //System.out.println("Value: " + board.getTotalAttacks());
-                //System.out.println();
-                neighbors.add(board);
+                Board neighbor = new Board(generateBoard(queens), n);
+                neighbors.add(neighbor);
             }
-            //System.out.println("--------------");
         }
     }
     
+    /**
+     * Generate a new board whenever the position of a queen is changed.
+     * @param queens, all the queens on the board
+     * @return new board
+     */
     private int[][] generateBoard(Queen[] queens) {
         int[][] board = new int[n][n];
         for (int i = 0; i < n; ++i) {
@@ -104,5 +105,4 @@ public class Node {
     public Queue<Board> getNeighbors() {
         return neighbors;
     }
- 
 }
