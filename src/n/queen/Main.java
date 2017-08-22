@@ -9,7 +9,7 @@ public class Main {
      * This is the main method that runs the program.
      * @param args the command line arguments
      */
-    public static void main(String[] args) {  
+    public static void main(String[] args) {
         int n = 22;
         int populationSize = 500;
         int numOfSuccess = 0;
@@ -34,11 +34,11 @@ public class Main {
         System.out.println("Average search cost: " + totalSearchCost/1000.0);
         System.out.println("Average run time: " + totalRunTime/1000.0 + " milliseconds");      
         System.out.println("---------------------------------------------");
-        //Population 200
+        //Population 500
         numOfSuccess = 0;
         System.out.println("Using the Genetic Algorithm");
         System.out.println("Population size: " + populationSize);
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 100; ++i) {
             if (numOfSuccess < 3) {
                 Genetic genetic = new Genetic(n, populationSize);
                 genetic.solve();
